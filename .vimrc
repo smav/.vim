@@ -625,7 +625,6 @@ Plug 'vim-scripts/syslog-syntax-file'
 Plug 'vim-scripts/apachelogs.vim'
 Plug 'vim-scripts/iptables'
 Plug 'vim-scripts/openvpn'
-Plug 'evanmiller/nginx-vim-syntax'
 Plug 'tpope/vim-markdown'
 Plug 'elzr/vim-json'
 " Python Plugins
