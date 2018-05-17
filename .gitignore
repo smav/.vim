@@ -1,0 +1,8 @@
+.DS_Store
+*.pyc
+*._*
+plugins/
+tmp/
+.viminfo
+.netrwhist
+wiki/

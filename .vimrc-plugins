@@ -1,0 +1,166 @@
+" Plugins {{{
+
+" Lightline
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ }
+
+"let g:lightline = {
+"      \ 'colorscheme': 'jellybeans',
+"      \ 'active': {
+"      \   'left': [ ['mode', 'paste'],
+"      \             ['fugitive', 'readonly', 'filename', 'modified'] ],
+"      \   'right': [ [ 'lineinfo' ], ['percent'] ]
+"      \ },
+"      \ 'component': {
+"      \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
+"      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+"      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+"      \ },
+"      \ 'component_visible_condition': {
+"      \   'readonly': '(&filetype!="help"&& &readonly)',
+"      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+"      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+"      \ },
+"      \ 'separator': { 'left': ' ', 'right': ' ' },
+"      \ 'subseparator': { 'left': ' ', 'right': ' ' }
+"      \ }
+" }}}
+
+" NerdTree {{{
+" Open NERD Tree
+nmap <F5> :NERDTreeToggle<cr>
+let NERDTreeShowBookmarks=1
+" Show hidden files
+let NERDTreeShowHidden=1
+" Quit on opening files from the tree
+let NERDTreeQuitOnOpen=1
+" Highlight the selected entry in the tree
+let NERDTreeHighlightCursorline=1
+" }}}
+
+" NerdCommenter {{{
+"" Add spaces after comment delimiters by default
+"let g:NERDSpaceDelims = 1
+"" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+"" Align line-wise comment delimiters flush left instead of following code indentation
+"let g:NERDDefaultAlign = 'left'
+"" Set a language to use its alternate delimiters by default
+"let g:NERDAltDelims_java = 1
+"" Add your own custom formats or override the defaults
+"let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+"" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+"" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" }}}
+
+" Syntastic {{{
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_messages = {'level': 'warnings'}
+let g:syntastic_python_checkers=['pyflakes']
+" }}}
+
+" Tabular {{{
+nmap <leader>= :Tabularize /=<CR>
+vmap <leader>= :Tabularize /=<CR>
+nmap <leader>== :Tabularize /=><CR>
+vmap <leader>== :Tabularize /=><CR>
+nmap <leader>: :Tabularize/:<CR>
+vmap <leader>: :Tabularize/:<CR>
+" line up but dont move ':' to the middle
+nmap <leader>:: :Tabularize/:\zs<CR>
+vmap <leader>:: :Tabularize/:\zs<CR>
+
+" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+"inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+"function! s:align()
+"  let p = '^\s*|\s.*\s|\s*$'
+"  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+"    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+"    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+"    Tabularize/|/l1
+"    normal! 0
+"    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+"  endif
+"endfunction
+" }}}
+
+" UtilSnips {{{
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" this mapping Enter key to <C-y> to chose the current highlight item 
+" and close the selection list, same as other IDEs.
+" CONFLICT with some plugins like tpope/Endwise
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" }}}
+
+" PyFlakes {{{
+" Auto-check file for errors on write:
+let g:PyFlakeOnWrite = 1
+" List of checkers used
+let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
+" Default max complexity for mccabe
+let g:PyFlakeDefaultComplexity=10
+" Disable warning for specified errors,
+" e501 = line too long
+" e265 = block comment must start with "# "
+let g:PyFlakeDisabledMessages = 'E501,E265'
+" Default aggressiveness for autopep8:
+let g:PyFlakeAggressive = 0
+" Default height of quickfix window:
+let g:PyFlakeCWindow = 0
+" Whether to place signs or not:
+let g:PyFlakeSigns = 1
+" When usign signs, this is the first id that will be used to identify the
+" signs. For if you are using other plugins that also use the sign gutter
+let g:PyFlakeSignStart = 1
+" Maximum line length for PyFlakeAuto command
+let g:PyFlakeMaxLineLength = 100
+" Visual-mode key command for PyFlakeAuto
+let g:PyFlakeRangeCommand = 'Q'
+"pyflakes  - no quickfix window
+let g:pyflakes_use_quickfix = 0
+" }}}
+
+" PyDoc.vim {{{
+"This plugin integrates the Python documentation view and search tool pydoc into Vim. It allows you to view the documentation of a Python module or class by typing:
+":Pydoc foo.bar.baz (e.g. :Pydoc re.compile)
+"Or search a word (uses pydoc -k) in the documentation by typing:
+":PydocSearch foobar (e.g. :PydocSearch socket)
+" }}}
+
+" Ansible {{{
+let g:ansible_extra_syntaxes = "sh.vim conf.vim dns.vim dnsmasq.vim python.vim sudoers.vim sshconfig.vim sshdconfig.vim"
+let g:ansible_attribute_highlight = "ab"
+"Available flags (bold are defaults):
+"a: highlight all instances of key=
+"o: highlight only instances of key= found on newlines
+"d: dim the instances of key= found
+"b: brighten the instances of key= found
+"n: turn this highlight off completely
+
+"let g:ansible_name_highlight = 'd'
+"d: dim the instances of name: found
+"b: brighten the instances of name: found
+
+let g:ansible_extra_keywords_highlight = 1
+"Note: This option is enabled when set, and disabled when not set.
+"Highlight the following additional keywords in playbooks:
+"  register always_run changed_when failed_when no_log args vars delegate_to ignore_errors
+"By default we only highlight: include until retries delay when only_if become become_user block rescue always notify
+
+" other ansible plugin - not in use atm
+"let g:ansible_options = {'ignore_blank_lines': 0}
+"let g:ansible_options = {'documentation_mapping': '<C-K>'}
+" }}}
+
+" Vimwiki {{{
+let g:vimwiki_list = [{'path': '~/.vim/wiki/'}]
+let g:vimwiki_camel_case = 0
+" }}}
+
+" }}}
