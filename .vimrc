@@ -264,7 +264,8 @@ noremap <C-l>  <C-w>l
 " }}}
 
 " Folding {{{
-set foldmethod=indent
+"set foldmethod=indent
+set foldmethod=manual
 set foldlevelstart=2
 set foldminlines=3
 
@@ -472,7 +473,7 @@ if has("autocmd")
     au BufRead,BufNewFile *py,*pyw,*.c,*.h set shiftwidth=4
 
     " fold = indent
-    au BufRead,BufNewFile *py,*pyw,*.c,*.h set foldmethod=indent
+    "au BufRead,BufNewFile *py,*pyw,*.c,*.h set foldmethod=indent
 
     " Use the below highlight group when displaying bad whitespace is desired.
     highlight BadWhitespace ctermbg=red guibg=red
@@ -548,7 +549,7 @@ if has("autocmd")
     " }}}
 
     " JS {{{
-    au FileType javascript call JavaScriptFold()
+    "au FileType javascript call JavaScriptFold()
     au FileType javascript setl fen
     au FileType javascript setl nocindent
 
@@ -640,6 +641,8 @@ Plug 'ChrisYip/Better-CSS-Syntax-for-Vim' " CSS
 Plug 'pearofducks/ansible-vim'      " Ansible syntax etc
 Plug 'lepture/vim-jinja'
 Plug 'vimwiki/vimwiki'              " Vimwiki - ERROR github username issue!?
+" Xdebug
+Plug 'joonty/vdebug'
 " Enable/end VimPlug config
 call plug#end()
 " Read in plugin settings
