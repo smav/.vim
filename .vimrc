@@ -140,7 +140,7 @@ set statusline+=%#Status#                   " normal colouring
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
 
-"set statusline+=[%{synIDattr(synID(line('.',),col('.',),1,),'name',)}]\  " Vim syntax type
+set statusline+=[%{synIDattr(synID(line('.',),col('.',),1,),'name',)}]\  " Vim syntax type
 set statusline+=[%p%%\ L:%l/%L\ C:%c]\              " line info
 "set statusline+=[Col:%c\ A:%b]\                  " char count/ascii code"
 
