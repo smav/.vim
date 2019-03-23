@@ -4,9 +4,9 @@ README
 Vim config files
 
 > cd  
-> git clone https://github.com/smav/.vim .vim  
+> git clone https://github.com/smav/.vim -b simple  
 > ln -s .vim/.vimrc  
 
-Run **vim**, type "**:PlugInstall**" then "**:q**" quit out when its done.
+Simple branch .vimrc, no plugin dependincies, some features require Vim 8.0+
 
 See also https://github.com/smav/configs
