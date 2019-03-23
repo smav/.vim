@@ -48,10 +48,13 @@ let g:colors_name = "iria256"
 let s:foreground = "c0c0c0"
 let s:background = "000000"
 let s:black      = "000000"
-let s:darkest    = "212121"
+let s:darkest    = "191919"
 let s:select     = "333333"
 let s:line       = "1c1c1c"
 let s:comment    = "606060"
+let s:grey       = "808080"
+let s:greydark   = "222222"
+let s:greylight  = "DDDDDD"
 let s:red        = "df8787"
 let s:reddark    = "5f0000"
 let s:reddiff    = "500000"
@@ -61,7 +64,10 @@ let s:orangedark = "ff8700"
 let s:yellow     = "e7c547"
 let s:yellowlight= "faf4c6"
 let s:yellowdark = "e6db74"
+let s:yellowdark2 = "878B08"
+let s:yellowdark3 = "AEB405"
 let s:green      = "afdf87"
+let s:green2     = "008f00"
 let s:greendark  = "005f00"
 let s:greendiff  = "005000"
 let s:aqua       = "70c0b1"
@@ -77,11 +83,12 @@ let s:white      = "ffffff"
 
 " Vim Highlighting {{{
 fun <SID>do_colours()
+    call <SID>X("qfFileName", s:green, "", "")
     call <SID>X("Normal", s:foreground, s:background, "")
-    call <SID>X("LineNr", s:foreground, "", "")
+    call <SID>X("LineNr", s:comment, "", "")
     call <SID>X("NonText", s:comment, "", "")
     call <SID>X("SpecialKey", s:comment, "", "")
-    call <SID>X("Search", s:background, s:yellowdark, "bold")
+    call <SID>X("Search", s:background, s:yellowlight, "reverse,bold")
     call <SID>X("TabLine", s:foreground, s:background, "reverse")
     call <SID>X("StatusLine", s:select, s:foreground, "")
     call <SID>X("StatusLineNC", s:foreground, s:background, "")
@@ -99,13 +106,15 @@ fun <SID>do_colours()
     call <SID>X("VimUserFunc", s:yellowlight, "", "")
     call <SID>X("VimVar", s:purple, "", "")
     call <SID>X("VimIsCommand", s:bluedark, "", "")
+    call <SID>X("vimOption", s:bluedark, "", "")
+    call <SID>X("vimHLGroup", s:bluedark, "", "")
     call <SID>X("Error", s:foreground, s:reddark, "")
     call <SID>X("ErrorMsg", s:foreground, s:reddark, "")
     call <SID>X("Folded", s:comment, s:black, "")
     call <SID>X("FoldColumn",s:green, s:darkest, "")
     call <SID>X("VertSplit", s:comment, s:select, "")
     call <SID>X("WildMenu", s:green, s:comment, "")
-    call <SID>X("SignColumn", s:orange, "", "")
+    call <SID>X("SignColumn", s:foreground, s:greydark, "")
 	" .diff
 	call <SID>X("diffAdded",   s:foreground, s:greendark, "")
 	call <SID>X("diffRemoved", s:foreground, s:reddark, "")
@@ -125,12 +134,13 @@ fun <SID>do_colours()
     end
 
     " Standard Highlighting
+    call <SID>X("SpellBad", s:white, "", "")
     call <SID>X("Comment", s:comment, "", "")
     call <SID>X("Number", s:orange, "", "")
     call <SID>X("Float", s:orange, "", "")
-    call <SID>X("Constant", s:orange, "", "")
+    call <SID>X("Constant", s:green, "", "")
     call <SID>X("Character", s:orange, "", "")
-    call <SID>X("Boolean", s:orange, "", "")
+    call <SID>X("Boolean", s:green, "", "")
     call <SID>X("String", s:yellowdark, "", "")
     call <SID>X("Statement", s:blue, "", "")
     call <SID>X("Repeat", s:blue, "", "")
@@ -147,7 +157,7 @@ fun <SID>do_colours()
     call <SID>X("StorageClass", s:blue, "", "")
     call <SID>X("TypeDef", s:bluedark, "", "")
     call <SID>X("Function", s:bluedark, "", "")
-    call <SID>X("Special", s:red, "", "")
+    call <SID>X("Special", s:red, s:reddark, "")
     call <SID>X("Identifier", s:purple, "", "none")
 
     call <SID>X("Operator", s:white, "", "none") "s:normal
@@ -155,7 +165,7 @@ fun <SID>do_colours()
     call <SID>X("Delimiter", s:comment, "", "")
     call <SID>X("Keyword", s:purple, "", "")
     "call <SID>X("Ignore", "444444", "", "")
-    call <SID>X("Todo", s:background, s:yellowdark, "")
+    call <SID>X("Todo", s:yellowdark, s:greydark, "")
 
 	" GitCommit Msg
 	call <SID>X("gitcommitHeader", s:comment, "", "")
@@ -165,7 +175,7 @@ fun <SID>do_colours()
 	call <SID>X("gitcommitDiscardedFile", s:yellowdark, "", "")
 	call <SID>X("gitcommitUntrackedFile", s:bluedeep, "", "")
 
-    " PHP Highlighting
+    " PHP
     "call <SID>X("phpRegion", s:white, "", "")
     call <SID>X("phpFunctions", s:bluedark, "", "")
     "classes =?!
@@ -183,7 +193,7 @@ fun <SID>do_colours()
     call <SID>X("phpStatement", s:blue, "", "")
     call <SID>X("phpMemberSelector", s:foreground, "", "")
 
-    " Ruby Highlighting
+    " Ruby
     call <SID>X("rubySymbol", s:green, "", "")
     call <SID>X("rubyConstant", s:yellow, "", "")
     call <SID>X("rubyAttribute", s:blue, "", "")
@@ -191,20 +201,101 @@ fun <SID>do_colours()
     call <SID>X("rubyLocalVariableOrMethod", s:orange, "", "")
     call <SID>X("rubyCurlyBlock", s:orange, "", "")
 
-    " Python Highlighting
-    call <SID>X("pythonInclude", s:purple, "", "")
+    " Python Highlighting (red = not available?)
+    call <SID>X("pythonInclude", s:white, "", "")
+    call <SID>X("pythonSelf", s:purple, "", "")
     call <SID>X("pythonStatement", s:purple, "", "")
     call <SID>X("pythonConditional", s:purple, "", "")
+    call <SID>X("pythonClass", s:bluedark, "", "")
     call <SID>X("pythonFunction", s:blue, "", "")
-    highlight link pythonImport PythonStatement
+    call <SID>X("pythonBuiltin", s:white, "", "")
+    call <SID>X("pythonBuiltinFunc", s:purple, "", "")
+    call <SID>X("pythonBuiltinObj", s:green, "", "")
+    call <SID>X("pythonBuiltinType", s:purple, "", "")
+    call <SID>X("pythonAttribute", s:red, "", "")
+    call <SID>X("pythonDecorator", s:grey, "", "")
+    call <SID>X("pythonDecoratorName", s:grey, "", "")
+    call <SID>X("pythonImport", s:white, "", "")
+    call <SID>X("pythonRun", s:green, "", "")
+    call <SID>X("pythonCoding", s:reddark, "", "")
+    call <SID>X("pythonOperator", s:white, "", "")
+    call <SID>X("pythonExtraOperator", s:greylight, "", "")
+    call <SID>X("pythonException", s:purple, "", "")
+    call <SID>X("pythonExceptions", s:blue, "", "")
+    call <SID>X("pythonBoolean", s:green, "", "")
+    call <SID>X("pythonString", s:yellowdark, "", "")
+    call <SID>X("pythonStrInterpRegion", s:yellowdark2, "", "") "sm
+    call <SID>X("pythonStrFormat", s:yellowdark2, "", "")
+    call <SID>X("pythonDot", s:white, "", "")
+    call <SID>X("pythonRepeat", s:purple, "", "")
+    call <SID>X("pythonDottedName", s:blue, "", "")
+    call <SID>X("pythonDocString", s:yellowdark2, "", "")
+    call <SID>X("pythonDocTest2", s:yellowdark, "", "")
 
-    " JavaScript Highlighting
+    " JavaScript
     call <SID>X("javaScriptBraces", s:foreground, "", "")
     call <SID>X("javaScriptFunction", s:purple, "", "")
     call <SID>X("javaScriptConditional", s:purple, "", "")
+    call <SID>X("javaScriptIdentifier", s:bluedark, "", "")
     call <SID>X("javaScriptRepeat", s:purple, "", "")
     call <SID>X("javaScriptNumber", s:orange, "", "")
     call <SID>X("javaScriptMember", s:orange, "", "")
+    call <SID>X("javaScriptNull", s:orange, "", "")
+    call <SID>X("javaScriptParens", s:bluedark, "", "")
+
+    " Jinja
+    call <SID>X("htmlString", s:yellowdark3, "", "")
+    call <SID>X("jinjaTagBlock", s:green, "", "")
+    call <SID>X("jinjaStatement", s:purple, "", "")
+    call <SID>X("jinjaArgument", s:yellowdark3, "", "")
+    call <SID>X("jinjaVarBlock", s:green, "", "")
+    call <SID>X("jinjaFilter", s:green, "", "")
+
+    " CSS
+    call <SID>X("cssBraces", s:bluedark, "", "")
+    call <SID>X("cssFunctionName", s:yellowdark, "", "")
+    call <SID>X("cssIdentifier", s:orange, "", "")
+    call <SID>X("cssClassName", s:green, "", "")
+    call <SID>X("cssColor", s:blue, "", "")
+    call <SID>X("cssSelectorOp", s:blue, "", "")
+    call <SID>X("cssSelectorOp2", s:blue, "", "")
+    call <SID>X("cssImportant", s:green, "", "")
+    call <SID>X("cssVendor", s:grey, "", "")
+    call <SID>X("cssTextProp", s:bluedark, "", "")
+    call <SID>X("cssAnimationProp", s:bluedark, "", "")
+    call <SID>X("cssUIProp", s:yellow, "", "")
+    call <SID>X("cssTransformProp", s:bluedark, "", "")
+    call <SID>X("cssTransitionProp", s:bluedark, "", "")
+    call <SID>X("cssPrintProp", s:bluedark, "", "")
+    call <SID>X("cssPositioningProp", s:yellow, "", "")
+    call <SID>X("cssBoxProp", s:bluedark, "", "")
+    call <SID>X("cssFontDescriptorProp", s:bluedark, "", "")
+    call <SID>X("cssFlexibleBoxProp", s:bluedark, "", "")
+    call <SID>X("cssBorderOutlineProp", s:bluedark, "", "")
+    call <SID>X("cssBackgroundProp", s:bluedark, "", "")
+    call <SID>X("cssMarginProp", s:bluedark, "", "")
+    call <SID>X("cssListProp", s:bluedark, "", "")
+    call <SID>X("cssTableProp", s:bluedark, "", "")
+    call <SID>X("cssFontProp", s:bluedark, "", "")
+    call <SID>X("cssPaddingProp", s:bluedark, "", "")
+    call <SID>X("cssDimensionProp", s:bluedark, "", "")
+    call <SID>X("cssRenderProp", s:bluedark, "", "")
+    call <SID>X("cssColorProp", s:bluedark, "", "")
+    call <SID>X("cssGeneratedContentProp", s:bluedark, "", "")
+    call <SID>X("cssUnitDecorators", s:foreground, "", "")
+    call <SID>X("cssValueLength", s:orangedark, "", "")
+    call <SID>X("cssValueNumber", s:orangedark, "", "")
+    call <SID>X("cssBorderAttr", s:orangedark, "", "")
+    call <SID>X("cssCommonAttr", s:orangedark, "", "")
+    call <SID>X("cssTextAttr", s:orangedark, "", "")
+    call <SID>X("cssColor", s:yellow, "", "")
+    call <SID>X("cssNoise", s:grey, "", "")
+
+    " Json
+    call <SID>X("jsonKeyword", s:green, "", "")
+    call <SID>X("jsonQuote", s:yellow, "", "")
+    call <SID>X("jsonBraces", s:bluedark, "", "")
+    call <SID>X("jsonString", s:yellow, "", "")
 
     " Vim Highlighting
 
@@ -220,6 +311,22 @@ fun <SID>do_colours()
     call <SID>X("cType", s:yellow, "", "")
     call <SID>X("cStorageClass", s:purple, "", "")
 
+    " Firewall Highlighting
+    call <SID>X("iptablesSaveDirective", s:purple, "", "")
+    call <SID>X("iptablesSaveOperation", s:blue, "", "")
+    call <SID>X("iptablesSaveTable", s:orange, "", "")
+    call <SID>X("iptablesSaveTarget", s:orange, "", "")
+    call <SID>X("iptablesBuiltinChain", s:blue, "", "")
+    call <SID>X("iptablesCommand", s:purple, "", "")
+    call <SID>X("iptablesParam", s:white, "", "")
+    call <SID>X("iptablesOperator", s:white, "", "")
+    call <SID>X("iptablesModuleName", s:blue, "", "")
+    call <SID>X("iptablesModuleType", s:purple, "", "")
+    call <SID>X("iptablesString", s:yellowdark, "", "")
+    call <SID>X("iptablesComment", s:greydark, "", "")
+    call <SID>X("iptablesBadComment", s:reddark, "", "")
+    call <SID>X("iptablesTodo", s:yellowdark2, "", "")
+    call <SID>X("iptablesLongParam", s:reddark, "", "")
 endfun
 
 " }}}

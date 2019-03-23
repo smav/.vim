@@ -1,8 +1,8 @@
-" Utility Functions {{{
+" Utility Functions
 
-" Create vim support folders {{{
+" Create vim support folders
 "stolen form spf13
-function! SetupFolders()
+function! functions#SetupFolders() abort
     " this will create a backup, undo, swap and views folders in $home/$prefix
     let separator = "."
     let parent = $HOME
@@ -45,10 +45,9 @@ function! SetupFolders()
         endif
     endfor
 endfunction
-" }}}
 
-" Custom fold text {{{
-function! MyFoldText()
+" Custom fold text
+function! functions#MyFoldText() abort
 	" for now, just don't try if version isn't 7 or higher
 	if v:version < 701
 		return foldtext()
@@ -81,10 +80,9 @@ function! MyFoldText()
 	endif
 	return printf('%s%*s', l:linetext, l:align, l:foldtext)
 endfunction
-" }}}
 
-" Custom fold text - basic {{{
-function! MyFoldText_basic()
+" Custom fold text - basic
+function! functions#MyFoldText_basic() abort
     let line = getline(v:foldstart)
 
     let nucolwidth = &fdc + &number * &numberwidth
@@ -99,10 +97,9 @@ function! MyFoldText_basic()
     let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
     return line . ' ' . foldedlinecount . ' lines'
 endfunction
-" }}}
 
-" Custom fold text - kept for inspiration {{{
-function! MyFoldText2()
+" Custom fold text - kept for inspiration
+function! functions#MyFoldText2() abort
   let line = getline(v:foldstart)
   if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
     let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
@@ -135,43 +132,30 @@ function! MyFoldText2()
   let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
   return sub . info
 endfunction
-" }}}
 
-" redefine x for virtualEdit {{{
+" redefine x for virtualEdit 
 " for a more natural/vim-like delete behaviour
-function! Redefine_x_ForVirtualEdit()
-  if &ve != "" && col('.') >= col('$')
-    normal $
-  endif
-endfu!
-silent! unmap x
-nnoremap <silent>x x:call Redefine_x_ForVirtualEdit()<CR>
-" }}}
+"function! functions#Redefine_x_ForVirtualEdit() abort
+"  if &ve != "" && col('.') >= col('$')
+"    normal $
+"  endif
+"endfu!
+"silent! unmap x
+"nnoremap <silent>x x:call Redefine_x_ForVirtualEdit()<CR>
 
-" TrimWhiteSpace - Remove trailing whitespace from the end of file {{{
-function! TrimWhiteSpace()
+" TrimWhiteSpace - Remove trailing whitespace from the end of file
+function! functions#TrimWhiteSpace() abort
 	" Substitute trailing white space
 	%s/\s*$//
 	" Return cursor to last position
 	''
 endfunction
-" }}}
 
-" HasPaste {{{
-" Echos PASTE or '', for use in statusbar
-"function! HasPaste()
-"    if &paste
-"        return 'PASTE'
-"    else
-"        return ''
-"    endif
-"endfunction
-" }}}
+" Below are for use in a vim statusline
 
-" WordCount - Count the words in current buffer {{{
-" For use in (pre-lightline) vim statusline
+" WordCount - Count the words in current buffer
 " from http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
-function! WordCount()
+function! functions#WordCount() abort
   let s:old_status = v:statusmsg
   exe "silent normal g\<c-g>"
   " Add some error checking
@@ -183,42 +167,22 @@ function! WordCount()
   let v:statusmsg = s:old_status
   return s:word_count
 endfunction
-" }}}
 
-" SynStack - Show syntax highlighting groups for word under cursor {{{
-nmap <C-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
+" SynStack - Show syntax highlighting groups for word under cursor
+"nmap <C-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack() abort
   if !exists("*synstack")
     return
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
-" }}}
 
-" UltiSnips/YCM stuff {{{
-"function! g:UltiSnips_Complete()
-"  call UltiSnips#ExpandSnippet()
-"  if g:ulti_expand_res == 0
-"    if pumvisible()
-"      return "\<C-n>"
+" HasPaste
+" Echos PASTE or '', for use in statusbar
+"function! functions#HasPaste()
+"    if &paste
+"        return 'PASTE'
 "    else
-"      call UltiSnips#JumpForwards()
-"      if g:ulti_jump_forwards_res == 0
-"        return "\<TAB>"
-"      endif
+"        return ''
 "    endif
-"  endif
-"  return ""
 "endfunction
-"
-"function! g:UltiSnips_Reverse()
-"  call UltiSnips#JumpBackwards()
-"  if g:ulti_jump_backwards_res == 0
-"    return "\<C-P>"
-"  endif
-"
-"  return ""
-"endfunction
-" }}}
-
-" }}}
