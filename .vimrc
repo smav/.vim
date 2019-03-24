@@ -149,7 +149,7 @@ set nocursorline
 set nocursorcolumn
 
 
-" Whitespace
+" Whitespace:
 "       Ctrl-K >> for »
 "       Ctrl-K .M for ·
 "       Ctrk-K 0M for M
@@ -193,7 +193,7 @@ set formatoptions=tcroqln1j       " Text auto-formatting options
 "         example, joining:
 
 
-" Autocomplete
+" Autocomplete:
 " Command line completion - behave more like bash completion
 set wildmenu
 "set wildmode=list:longest
@@ -242,14 +242,13 @@ set pumheight=16 " Popup menu height
 "inoremap <expr> <S-Space> ( pumvisible() ? ( col( '.',) > 1 ? '<Esc>i<Right>' : '<Esc>i',) : '',) .
 "            \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 
-" Expansions/Spelling
-"
-" Omni completion
+
+" Omni completion:
 " Complete for any language we have a autoload/*complete.vim for
 set ofu=syntaxcomplete#Complete
 
 
-" Movement
+" Movement:
 set backspace=indent,eol,start  " Backspace over everything
 set virtualedit=all             " Allow cursor to move to 'illegal' areas
 
@@ -275,7 +274,7 @@ vnoremap L $
 nnoremap j gj
 nnoremap k gk
 
-" Search
+" Search:
 "
 " Use Power search
 nnoremap / /\v
@@ -292,7 +291,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 
-" Buffers
+" Buffers:
 " buffer switching on arrow keys
 map <Right> :bnext<CR>
 imap <Right> <ESC>:bnext<CR>
@@ -306,7 +305,7 @@ imap <Left> <ESC>:bprev<CR>
 "noremap <C-l>  <C-w>l
 
 
-" Folding
+" Folding:
 set foldmethod=indent
 set foldlevel=99
 "set foldlevelstart=2
@@ -316,7 +315,7 @@ set foldlevel=99
 set foldopen="block,insert,jump,mark,percent,quickfix,search,tag,undo"
 
 
-" Mappings
+" Mappings:
 "
 " Leader
 let mapleader = ","
@@ -384,7 +383,7 @@ cnoremap W!! w !sudo tee % >/dev/null
 nnoremap ,x :w<CR>:!chmod a+x %<Cr>:e<CR>
 
 
-" F-keys
+" F-keys:
 
 " spell toggle
 "nnoremap <F6> :setlocal spell! spelllang=en_gb<CR>
@@ -405,7 +404,7 @@ nnoremap <F6> :echo "hi<".synIDattr(synID(line(".",),col(".",),1,),"name",).'>tr
 "noremap <silent> <F11> :vertical resize -10<CR>
 
 
-" Filetypes/Autocmd
+" Filetypes/Autocmd:
 set encoding=utf-8              " UTF8
 set termencoding=utf-8          " terminal encoding
 if has("autocmd")
@@ -567,7 +566,7 @@ if has("autocmd")
 endif
 
 
-" Plugins
+" Plugins:
 " vim8 plugins/packs:
 " https://vi.stackexchange.com/questions/9522/what-is-the-vim8-package-feature-and-how-should-i-use-it
 " https://stories.abletech.nz/get-rid-of-your-vim-plugin-manager-7c8ff742f643?gi=ad0164db5086#.abnjauzgk
@@ -765,7 +764,7 @@ let g:terraform_align=1
 call plug#end()
 
 
-" Digraphs
+" Digraphs:
 " Alpha   α
 imap <c-l><c-a> <c-k>a*
 " Beta    β
@@ -791,7 +790,7 @@ imap <c-l><c-p> <c-k>p*
 " Phi     φ
 imap <c-l><c-f> <c-k>f*
 
-" Useful abbrevs
+" Useful abbrevs:
 " File and path name stuff
 iab xpath <c-r>=expand("%:p")<CR>
 iab xfile <c-r>=expand("%:t:r")<CR>
