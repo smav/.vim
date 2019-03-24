@@ -23,7 +23,6 @@
 " Color numbers (0-255) see:
 " http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
 
-" Init {{{
 
 " Deal with errors on startup
 if &t_Co != 256 && ! has("gui_running")
@@ -33,7 +32,6 @@ if &t_Co != 256 && ! has("gui_running")
   finish
 endif
 
-" Init
 set background=dark
 if version > 580
     hi clear
@@ -42,9 +40,8 @@ if version > 580
     endif
 endif
 let g:colors_name = "iria256"
-" }}}
 
-" Default GUI Colours {{{
+" Default GUI Colours
 let s:foreground = "c0c0c0"
 let s:background = "000000"
 let s:black      = "000000"
@@ -60,14 +57,19 @@ let s:red        = "df8787"
 let s:reddark    = "5f0000"
 let s:reddiff    = "500000"
 let s:orange     = "e78c45"
+let s:orangemed  = "d6b32a"
 let s:orangelight= "dfaf87"
+let s:orangelight2= "f4b95f"
 let s:orangedark = "ff8700"
 let s:yellow     = "e7c547"
 let s:yellowlight= "faf4c6"
+let s:yellowlight2= "eaeaa8"
+let s:yellowlight3= "d1d198"
 let s:yellowdark = "e6db74"
 let s:yellowdark2 = "878B08"
 let s:yellowdark3 = "AEB405"
 let s:green      = "afdf87"
+let s:greenlight = "a8eaa8"
 let s:green2     = "008f00"
 let s:greendark  = "005f00"
 let s:greendiff  = "005000"
@@ -80,9 +82,8 @@ let s:bluedeep   = "005fff"
 let s:purple     = "dfafdf"
 let s:magenta    = "c397d8"
 let s:white      = "ffffff"
-" }}}
 
-" Vim Highlighting {{{
+" Vim Highlighting
 fun <SID>do_colours()
     call <SID>X("qfFileName", s:green, "", "")
     call <SID>X("Normal", s:foreground, s:background, "")
@@ -104,20 +105,22 @@ fun <SID>do_colours()
     call <SID>X("WarningMsg", s:foreground, s:reddark, "")
     call <SID>X("VimCommand", s:blue, "", "none")
     call <SID>X("VimComment", s:comment, "", "none")
+    call <SID>X("VimOperParen", s:greylight, "", "none")
     call <SID>X("VimLineComment", s:comment, "", "none")
     call <SID>X("VimCommentTitle", s:grey, "", "none")
     call <SID>X("VimFunction", s:yellowlight, "", "")
-    call <SID>X("VimUserFunc", s:yellowlight, "", "")
+    call <SID>X("VimUserFunc", s:blue, "", "")
     call <SID>X("VimVar", s:purple, "", "")
     call <SID>X("VimIsCommand", s:bluedark, "", "")
     call <SID>X("vimOption", s:bluedark, "", "")
     call <SID>X("vimHLGroup", s:bluedark, "", "")
+    call <SID>X("vimNotation", s:bluedark, "", "")
     call <SID>X("Error", s:foreground, s:reddark, "")
     call <SID>X("ErrorMsg", s:foreground, s:reddark, "")
     call <SID>X("Folded", s:comment, s:black, "")
     call <SID>X("FoldColumn",s:green, s:darkest, "")
     call <SID>X("VertSplit", s:comment, s:select, "")
-    call <SID>X("WildMenu", s:green, s:comment, "")
+    call <SID>X("WildMenu", s:greenlight, s:comment, "")
     call <SID>X("SignColumn", s:foreground, s:greydark, "")
 	" .diff
 	call <SID>X("diffAdded",   s:foreground, s:greendark, "")
@@ -134,28 +137,28 @@ fun <SID>do_colours()
 		call <SID>X("ColorColumn", "", s:darkest, "none")
         call <SID>X("PMenu", s:foreground, s:select, "none")
         call <SID>X("PMenuSel", s:foreground, s:select, "reverse")
-        call <SID>X("MatchParen", s:green, s:background, "none")
+        call <SID>X("MatchParen", s:greenlight, s:background, "none")
     end
 
     " Standard Highlighting
-    call <SID>X("SpellBad", s:white, "", "")
+    call <SID>X("SpellBad", s:reddark, "", "")
     call <SID>X("Comment", s:comment, "", "")
-    call <SID>X("Number", s:orange, "", "")
-    call <SID>X("Float", s:orange, "", "")
-    call <SID>X("Constant", s:green, "", "")
-    call <SID>X("Character", s:orange, "", "")
-    call <SID>X("Boolean", s:green, "", "")
-    call <SID>X("String", s:yellowdark, "", "")
+    call <SID>X("Number", s:orangelight2, "", "")
+    call <SID>X("Float", s:orangelight2, "", "")
+    call <SID>X("Constant", s:greenlight, "", "")
+    call <SID>X("Character", s:yellowdark, "", "")
+    call <SID>X("Boolean", s:greenlight, "", "")
+    call <SID>X("String", s:yellowlight2, "", "")
     call <SID>X("Statement", s:blue, "", "")
     call <SID>X("Repeat", s:blue, "", "")
     call <SID>X("Label", s:blue, "", "")
     call <SID>X("Exception", s:blue, "", "")
     call <SID>X("Conditional", s:blue, "", "")
-    call <SID>X("PreProc", s:green, "", "")
-    call <SID>X("Define", s:green, "", "none")
-    call <SID>X("Include", s:green, "", "")
-    call <SID>X("Macro", s:green, "", "")
-    call <SID>X("PreConduit", s:green, "", "")
+    call <SID>X("PreProc", s:greenlight, "", "")
+    call <SID>X("Define", s:greenlight, "", "none")
+    call <SID>X("Include", s:greenlight, "", "")
+    call <SID>X("Macro", s:greenlight, "", "")
+    call <SID>X("PreConduit", s:greenlight, "", "")
     call <SID>X("Type", s:bluedark, "", "none")
     call <SID>X("Structure", s:bluedark, "", "")
     call <SID>X("StorageClass", s:blue, "", "")
@@ -163,18 +166,17 @@ fun <SID>do_colours()
     call <SID>X("Function", s:bluedark, "", "")
     call <SID>X("Special", s:red, s:reddark, "")
     call <SID>X("Identifier", s:purple, "", "none")
-
     call <SID>X("Operator", s:white, "", "none") "s:normal
-    call <SID>X("Title", s:comment, "", "")
-    call <SID>X("Delimiter", s:comment, "", "")
+    call <SID>X("Title", s:greymed, "", "")
+    call <SID>X("Delimiter", s:greymed, "", "")
     call <SID>X("Keyword", s:purple, "", "")
     "call <SID>X("Ignore", "444444", "", "")
     call <SID>X("Todo", s:yellowdark, s:greydark, "")
 
 	" GitCommit Msg
 	call <SID>X("gitcommitHeader", s:comment, "", "")
-	call <SID>X("gitcommitSelectedType", s:green, "", "")
-	call <SID>X("gitcommitSelectedFile", s:green, "", "")
+	call <SID>X("gitcommitSelectedType", s:greenlight, "", "")
+	call <SID>X("gitcommitSelectedFile", s:greenlight, "", "")
 	call <SID>X("gitcommitDiscardedType", s:yellowdark, "", "")
 	call <SID>X("gitcommitDiscardedFile", s:yellowdark, "", "")
 	call <SID>X("gitcommitUntrackedFile", s:bluedeep, "", "")
@@ -214,20 +216,20 @@ fun <SID>do_colours()
     call <SID>X("pythonFunction", s:blue, "", "")
     call <SID>X("pythonBuiltin", s:white, "", "")
     call <SID>X("pythonBuiltinFunc", s:purple, "", "")
-    call <SID>X("pythonBuiltinObj", s:green, "", "")
+    call <SID>X("pythonBuiltinObj", s:bluedark, "", "")
     call <SID>X("pythonBuiltinType", s:purple, "", "")
     call <SID>X("pythonAttribute", s:red, "", "")
     call <SID>X("pythonDecorator", s:grey, "", "")
     call <SID>X("pythonDecoratorName", s:grey, "", "")
     call <SID>X("pythonImport", s:white, "", "")
-    call <SID>X("pythonRun", s:green, "", "")
+    call <SID>X("pythonRun", s:greenlight, "", "")
     call <SID>X("pythonCoding", s:reddark, "", "")
     call <SID>X("pythonOperator", s:white, "", "")
     call <SID>X("pythonExtraOperator", s:greylight, "", "")
     call <SID>X("pythonException", s:purple, "", "")
     call <SID>X("pythonExceptions", s:blue, "", "")
-    call <SID>X("pythonBoolean", s:green, "", "")
-    call <SID>X("pythonString", s:yellowdark, "", "")
+    call <SID>X("pythonBoolean", s:greenlight, "", "")
+    call <SID>X("pythonString", s:yellowlight2, "", "")
     call <SID>X("pythonStrInterpRegion", s:yellowdark2, "", "") "sm
     call <SID>X("pythonStrFormat", s:yellowdark2, "", "")
     call <SID>X("pythonDot", s:white, "", "")
@@ -235,6 +237,10 @@ fun <SID>do_colours()
     call <SID>X("pythonDottedName", s:blue, "", "")
     call <SID>X("pythonDocString", s:yellowdark2, "", "")
     call <SID>X("pythonDocTest2", s:yellowdark, "", "")
+    " pip
+    call <SID>X("dosiniHeader", s:greylight, "", "")
+    call <SID>X("dosiniValue", s:yellowlight3, "", "")
+
 
     " JavaScript
     call <SID>X("javaScriptBraces", s:foreground, "", "")
@@ -242,28 +248,34 @@ fun <SID>do_colours()
     call <SID>X("javaScriptConditional", s:purple, "", "")
     call <SID>X("javaScriptIdentifier", s:bluedark, "", "")
     call <SID>X("javaScriptRepeat", s:purple, "", "")
-    call <SID>X("javaScriptNumber", s:orange, "", "")
-    call <SID>X("javaScriptMember", s:orange, "", "")
-    call <SID>X("javaScriptNull", s:orange, "", "")
+    call <SID>X("javaScriptNumber", s:orangelight2, "", "")
+    call <SID>X("javaScriptMember", s:orangelight2, "", "")
+    call <SID>X("javaScriptNull", s:orangelight2, "", "")
     call <SID>X("javaScriptParens", s:bluedark, "", "")
 
     " Jinja
     call <SID>X("htmlString", s:yellowdark3, "", "")
-    call <SID>X("jinjaTagBlock", s:green, "", "")
+    call <SID>X("jinjaTagBlock", s:greenlight, "", "")
     call <SID>X("jinjaStatement", s:purple, "", "")
     call <SID>X("jinjaArgument", s:yellowdark3, "", "")
-    call <SID>X("jinjaVarBlock", s:green, "", "")
-    call <SID>X("jinjaFilter", s:green, "", "")
+    call <SID>X("jinjaVarBlock", s:greenlight, "", "")
+    call <SID>X("jinjaFilter", s:greenlight, "", "")
+
+    " Json
+    call <SID>X("jsonKeyword", s:bluedark, "", "")
+    call <SID>X("jsonQuote", s:yellow, "", "")
+    call <SID>X("jsonBraces", s:bluedark, "", "")
+    call <SID>X("jsonString", s:yellowlight3, "", "")
 
     " CSS
     call <SID>X("cssBraces", s:bluedark, "", "")
     call <SID>X("cssFunctionName", s:yellowdark, "", "")
-    call <SID>X("cssIdentifier", s:orange, "", "")
-    call <SID>X("cssClassName", s:green, "", "")
+    call <SID>X("cssIdentifier", s:orangelight2, "", "")
+    call <SID>X("cssClassName", s:greenlight, "", "")
     call <SID>X("cssColor", s:blue, "", "")
     call <SID>X("cssSelectorOp", s:blue, "", "")
     call <SID>X("cssSelectorOp2", s:blue, "", "")
-    call <SID>X("cssImportant", s:green, "", "")
+    call <SID>X("cssImportant", s:greendiff, "", "")
     call <SID>X("cssVendor", s:grey, "", "")
     call <SID>X("cssTextProp", s:bluedark, "", "")
     call <SID>X("cssAnimationProp", s:bluedark, "", "")
@@ -294,12 +306,6 @@ fun <SID>do_colours()
     call <SID>X("cssTextAttr", s:orangedark, "", "")
     call <SID>X("cssColor", s:yellow, "", "")
     call <SID>X("cssNoise", s:grey, "", "")
-
-    " Json
-    call <SID>X("jsonKeyword", s:green, "", "")
-    call <SID>X("jsonQuote", s:yellow, "", "")
-    call <SID>X("jsonBraces", s:bluedark, "", "")
-    call <SID>X("jsonString", s:yellow, "", "")
 
     " Vim Highlighting
 
@@ -333,13 +339,11 @@ fun <SID>do_colours()
     call <SID>X("iptablesLongParam", s:reddark, "", "")
 endfun
 
-" }}}
 
-" Main {{{
+" Main
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
-    " Colour Functions {{{
 
-    " Returns an approximate grey index for the given grey level {{{
+    " Returns an approximate grey index for the given grey level
     fun <SID>grey_number(x)
         if &t_Co == 88
             if a:x < 23
@@ -377,9 +381,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
             endif
         endif
     endfun
-    " }}}
 
-    " Returns the actual grey level represented by the grey index {{{
+    " Returns the actual grey level represented by the grey index
     fun <SID>grey_level(n)
         if &t_Co == 88
             if a:n == 0
@@ -411,9 +414,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
             endif
         endif
     endfun
-    " }}}
 
-    " Returns the palette index for the given grey index {{{
+    " Returns the palette index for the given grey index
     fun <SID>grey_colour(n)
         if &t_Co == 88
             if a:n == 0
@@ -433,9 +435,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
             endif
         endif
     endfun
-    " }}}
 
-    " Returns an approximate colour index for the given colour level {{{
+    " Returns an approximate colour index for the given colour level
     fun <SID>rgb_number(x)
         if &t_Co == 88
             if a:x < 69
@@ -461,9 +462,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
             endif
         endif
     endfun
-    " }}}
 
-    " Returns the actual colour level for the given colour index {{{
+    " Returns the actual colour level for the given colour index
     fun <SID>rgb_level(n)
         if &t_Co == 88
             if a:n == 0
@@ -483,9 +483,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
             endif
         endif
     endfun
-    " }}}
 
-    " Returns the palette index for the given R/G/B colour indices {{{
+    " Returns the palette index for the given R/G/B colour indices
     fun <SID>rgb_colour(x, y, z)
         if &t_Co == 88
             return 16 + (a:x * 16) + (a:y * 4) + a:z
@@ -493,9 +492,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
             return 16 + (a:x * 36) + (a:y * 6) + a:z
         endif
     endfun
-    " }}}
 
-    " Returns the palette index to approximate the given RGB colour levels {{{
+    " Returns the palette index to approximate the given RGB colour levels
     fun <SID>colour(r, g, b)
         " Get the closest grey
         let l:gx = <SID>grey_number(a:r)
@@ -529,9 +527,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
             return <SID>rgb_colour(l:x, l:y, l:z)
         endif
     endfun
-    " }}}
 
-    " Returns the palette index to approximate the 'rrggbb' hex string {{{
+    " Returns the palette index to approximate the 'rrggbb' hex string
     fun <SID>rgb(rgb)
         let l:r = ("0x" . strpart(a:rgb, 0, 2)) + 0
         let l:g = ("0x" . strpart(a:rgb, 2, 2)) + 0
@@ -539,9 +536,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
         return <SID>colour(l:r, l:g, l:b)
     endfun
-    " }}}
 
-    " Sets the highlighting for the given group {{{
+    " Sets the highlighting for the given group
     fun <SID>X(group, fg, bg, attr)
         if a:fg != ""
             exec "hi " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
@@ -553,12 +549,10 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
             exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
         endif
     endfun
-    " }}}
-    " }}}
 
     call <SID>do_colours()
 
-    " Delete Functions {{{
+    " Delete Functions
     delf <SID>X
     delf <SID>rgb
     delf <SID>colour
@@ -569,6 +563,5 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     delf <SID>grey_level
     delf <SID>grey_number
     delf <SID>do_colours
-    " }}}
+
 endif
-" }}}
