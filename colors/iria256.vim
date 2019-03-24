@@ -52,8 +52,9 @@ let s:darkest    = "191919"
 let s:select     = "333333"
 let s:line       = "1c1c1c"
 let s:comment    = "606060"
-let s:grey       = "808080"
 let s:greydark   = "222222"
+let s:grey       = "808080"
+let s:greymed    = "A4A4A4"
 let s:greylight  = "DDDDDD"
 let s:red        = "df8787"
 let s:reddark    = "5f0000"
@@ -102,6 +103,9 @@ fun <SID>do_colours()
     call <SID>X("Question", s:yellowdark, "", "")
     call <SID>X("WarningMsg", s:foreground, s:reddark, "")
     call <SID>X("VimCommand", s:blue, "", "none")
+    call <SID>X("VimComment", s:comment, "", "none")
+    call <SID>X("VimLineComment", s:comment, "", "none")
+    call <SID>X("VimCommentTitle", s:grey, "", "none")
     call <SID>X("VimFunction", s:yellowlight, "", "")
     call <SID>X("VimUserFunc", s:yellowlight, "", "")
     call <SID>X("VimVar", s:purple, "", "")

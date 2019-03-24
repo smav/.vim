@@ -88,40 +88,34 @@ set tm=500
 " System specific settings
 set shell=/bin/bash             " Default shell to start with :shell
 set shellslash                  " Unix path char
-"set fileformats=unix            " only detect unix format, ^M with dos file
 set fileformats=unix,dos,mac    " detect all
 
 
 " Look and Feel
 set titlestring=%f title        " Display filename in terminal window
-syntax enable
-"set synmaxcol=16384             " Dont highlight big files
 set background=dark             " Dont blind me
 colorscheme iria256             " Use my colorscheme
 
-" Statusline  - Optimised 80char(vimdiff)
-" Improvements - move to function? ..
+" Statusline:
 " http://got-ravings.blogspot.com/2008/08/vim-pr0n-making-statuslines-that-own.html
 " https://hackernoon.com/the-last-statusline-for-vim-a613048959b2
 " https://github.com/blaenk/dots/blob/dfb34f1ad78f5aa25bc486d3c14c9a0ef24094bd/vim/.vimrc#L168
-set statusline=   " clear the statusline for when vimrc is reloaded
+set statusline=                               " clear statusline on vim reload
 set statusline+=%#Status#                     " normal colouring
 set statusline+=%-n\                          " buffer number
-"set statusline+=%-F\                          " file name
-set statusline+=%t\                          " file name
+set statusline+=%t\                           " file name
 set statusline+=%3*                           " magenta
-set statusline+=%{fugitive#statusline()}\       " Git fugitive status
+set statusline+=%{fugitive#statusline()}\     " Git fugitive status
 set statusline+=%#Status#                     " normal colouring
 set statusline+=[%{strlen(&ft)?&ft:'none'}    " filetype
-set statusline+=%#Status#:                   " normal colouring
+set statusline+=%#Status#:                    " normal colouring
 set statusline+=%{strlen(&fenc)?&fenc:&enc}]\ " encoding
 set statusline+=%3*                           " magentaj
-set statusline+=%{&paste?'[paste]':''}      " paste mode
+set statusline+=%{&paste?'[paste]':''}        " paste mode
 set statusline+=%2*                           " red
-"set statusline+=[%{&ff}]\            " file format
 set statusline+=%{'!'[&ff=='unix']}\          " ! if not unix format
 set statusline+=%h%m%r%w                      " flags
-set statusline+=%#Status#                   " normal colouring
+set statusline+=%#Status#                     " normal colouring
 " Function: display errors from Ale in statusline
 function! LinterStatus() abort
    let l:counts = ale#statusline#Count(bufnr(''))
@@ -132,14 +126,9 @@ endfunction
 set statusline+=\ %2*
 set statusline+=\%{LinterStatus()}
 set statusline+=%*
-
 set statusline+=%=                            " right align
-set statusline+=%#Status#                   " normal colouring
-"" Puts in syntastic warnings
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%#Status#                     " normal colouring
 "set statusline+=%*
-
 set statusline+=[%{synIDattr(synID(line('.',),col('.',),1,),'name',)}]\  " Vim syntax type
 set statusline+=[%p%%\ L:%l/%L\ C:%c]\              " line info
 "set statusline+=[Col:%c\ A:%b]\                  " char count/ascii code"
@@ -178,7 +167,6 @@ set tabstop=4                   " Number of spaces a <Tab> counts for
 set softtabstop=4               " Number of spaces that a <Tab> counts for while editing
 set shiftwidth=4                " Number of spaces used for autoindent
 set expandtab                   " Tab inserts N spaces
-"set smarttab                    "
 
 set shiftround                  " Use a multiple of shiftwidth indenting with '<' and '>'"
 set wrap                        " Wrap long lines
@@ -515,25 +503,6 @@ if has("autocmd")
         autocmd FileType html setlocal indentkeys-=*<Return>
     augroup END
 
-    augroup PHP
-        " Remove all auto-commands from the group
-        autocmd!
-
-        "Include html vim stuff
-        autocmd BufNewFile, BufRead, BufEnter *.php, *.phps, *.ctp set filetype=php.html
-
-        " Use pman for 'K' - Required pman be installed!
-        "autocmd BufNewFile, BufRead, BufEnter *.php, *.phps, *.ctp set keywordprg=pman
-
-        " error formating
-        autocmd FileType php set errorformat=%m\ in\ %f\ on\ line\ %l
-        " linting
-        autocmd FileType php noremap <leader>l :!/usr/bin/php -l %<CR>
-
-        " run file with PHP CLI
-        autocmd FileType php noremap <leader>m :w!<CR>:!/usr/bin/php %<CR>
-    augroup END
-
     augroup JS
         " Remove all auto-commands from the group
         autocmd!
@@ -561,7 +530,7 @@ if has("autocmd")
         autocmd FileType javascript call JavaScriptFold()
     augroup END
 
-    augroup YML
+    augroup YAML
         " Remove all auto-commands from the group
         autocmd!
 
@@ -656,8 +625,8 @@ vmap <leader>:: :Tabularize/:\zs<CR>
 
 "Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-fugitive'          " Git integration
-Plug 'adelarsq/vim-matchit'          " Match words with %
+Plug 'tpope/vim-fugitive'           " Git integration
+Plug 'adelarsq/vim-matchit'         " Match words with %
 
 
 " Snippets
@@ -678,8 +647,8 @@ Plug 'vim-scripts/openvpn'
 Plug 'tpope/vim-markdown'
 Plug 'elzr/vim-json'
 Plug 'lepture/vim-jinja'
-"Plug 'tpope/vim-ragtag'            " HTML/XML Mappings
-"Plug 'othree/html5.vim'             " HTML5
+Plug 'tpope/vim-ragtag'            " HTML/XML Mappings
+"Plug 'othree/html5.vim'            " HTML5
 
 
 Plug 'vimwiki/vimwiki'              " Vimwiki - ERROR github username issue!?
@@ -697,7 +666,7 @@ let g:ansible_attribute_highlight = "ab"
 "b: brighten the instances of key= found
 "n: turn this highlight off completely
 
-"let g:ansible_name_highlight = 'd'
+let g:ansible_name_highlight = 'b'
 "d: dim the instances of name: found
 "b: brighten the instances of name: found
 let g:ansible_extra_keywords_highlight = 1
@@ -705,10 +674,6 @@ let g:ansible_extra_keywords_highlight = 1
 "Highlight the following additional keywords in playbooks:
 "  register always_run changed_when failed_when no_log args vars delegate_to ignore_errors
 "By default we only highlight: include until retries delay when only_if become become_user block rescue always notify
-
-" other ansible plugin - not in use atm
-"let g:ansible_options = {'ignore_blank_lines': 0}
-"let g:ansible_options = {'documentation_mapping': '<C-K>'}
 
 
 Plug 'mhinz/vim-startify'
@@ -726,7 +691,7 @@ let g:ale_lint_on_enter = 0
 
 "let b:ale_linters = ['flake8']
 let g:ale_linters = {
-\ 'python': ['pycodestyle', 'flake8'],
+\ 'python': ['flake8'],
 \}
 "let b:ale_fixers = ['prettier', 'eslint']
 "let b:ale_fixers = [
@@ -740,10 +705,10 @@ let g:ale_fixers = {
 \    '*': ['remove_trailing_lines'],
 \    'python': [
 \       'add_blank_lines_for_python_control_statements',
-\       'yapf3',
 \       'ale#fixers#generic_python#BreakUpLongLines',
-\    ],  
-\    'html': [], 
+\       'yapf3',
+\    ],
+\    'html': [],
 \    'javascript': ['eslint'],
 \}
 " \ 'python': ['isort', 'ale#fixers#generic_python#BreakUpLongLines'],
