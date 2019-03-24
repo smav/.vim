@@ -267,6 +267,17 @@ fun <SID>do_colours()
     call <SID>X("jsonBraces", s:bluedark, "", "")
     call <SID>X("jsonString", s:yellowlight3, "", "")
 
+    " YAML
+    call <SID>X("yamlKeyValueDelimiter", s:white, "", "")
+    call <SID>X("yamlBlockMappingKey", s:blue, "", "")
+    call <SID>X("yamlBlockCollectionItemStart", s:blue, "", "")
+    "call <SID>X("yamlPlainScalar", s:yellowlight3, "", "")
+    call <SID>X("yamlDocumentStart", s:white, "", "")
+
+    " Ansible
+    call <SID>X("ansible_name", s:blue, "", "")
+    "call <SID>X("ansible_attribute", s:blue, "", "")
+
     " CSS
     call <SID>X("cssBraces", s:bluedark, "", "")
     call <SID>X("cssFunctionName", s:yellowdark, "", "")
