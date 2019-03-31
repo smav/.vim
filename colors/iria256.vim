@@ -42,46 +42,46 @@ endif
 let g:colors_name = "iria256"
 
 " Default GUI Colours
-let s:foreground = "c0c0c0"
-let s:background = "000000"
-let s:black      = "000000"
-let s:darkest    = "191919"
-let s:select     = "333333"
-let s:line       = "1c1c1c"
-let s:comment    = "606060"
-let s:greydark   = "222222"
-let s:grey       = "808080"
-let s:greymed    = "A4A4A4"
-let s:greylight  = "DDDDDD"
-let s:red        = "df8787"
-let s:reddark    = "5f0000"
-let s:reddiff    = "500000"
-let s:orange     = "e78c45"
-let s:orangemed  = "d6b32a"
-let s:orangelight= "dfaf87"
-let s:orangelight2= "f4b95f"
-let s:orangedark = "ff8700"
-let s:yellow     = "e7c547"
-let s:yellowlight= "faf4c6"
-let s:yellowlight2= "eaeaa8"
-let s:yellowlight3= "d1d198"
-let s:yellowdark = "e6db74"
-let s:yellowdark2 = "878B08"
-let s:yellowdark3 = "AEB405"
-let s:green      = "afdf87"
-let s:greenlight = "a8eaa8"
-let s:green2     = "008f00"
-let s:greendark  = "005f00"
-let s:greendiff  = "005000"
-let s:aqua       = "70c0b1"
-let s:blue       = "87afdf"
-let s:blueold    = "7aa6da"
-let s:bluedark   = "afafdf"
-let s:bluediff   = "00005f"
-let s:bluedeep   = "005fff"
-let s:purple     = "dfafdf"
-let s:magenta    = "c397d8"
-let s:white      = "ffffff"
+let s:foreground = "c0c0c0" " #c0c0c0
+let s:background = "000000" " #000000
+let s:black      = "000000" " #000000
+let s:darkest    = "191919" " #191919
+let s:select     = "333333" " #333333
+let s:line       = "1c1c1c" " #1c1c1c
+let s:comment    = "606060" " #606060
+let s:greydark   = "222222" " #222222
+let s:grey       = "808080" " #808080
+let s:greymed    = "A4A4A4" " #A4A4A4
+let s:greylight  = "DDDDDD" " #DDDDDD
+let s:red        = "df8787" " #df8787
+let s:reddark    = "5f0000" " #5f0000
+let s:reddiff    = "500000" " #500000
+let s:orange     = "e78c45" " #e78c45
+let s:orangemed  = "d6b32a" " #d6b32a
+let s:orangelight= "dfaf87" " #dfaf87
+let s:orangelight2= "f4b95f" " #f4b95f
+let s:orangedark = "ff8700" " #ff8700
+let s:yellow     = "e7c547"  " #7c547
+let s:yellowlight= "faf4c6" " #faf4c6
+let s:yellowlight2= "eaeaa8" " #eaeaa8
+let s:yellowlight3= "d1d198" " #d1d198
+let s:yellowdark = "e6db74" " #e6db74
+let s:yellowdark2 = "878B08" " #878B08
+let s:yellowdark3 = "AEB405" " #AEB405
+let s:green      = "afdf87" " #afdf87
+let s:greenlight = "a8eaa8" " #a8eaa8
+let s:green2     = "008f00" " #008f00
+let s:greendark  = "005f00" " #005f00
+let s:greendiff  = "005000" " #005000
+let s:aqua       = "70c0b1" " #70c0b1
+let s:blue       = "87afdf" " #87afdf
+let s:blueold    = "7aa6da" " #7aa6da
+let s:bluedark   = "afafdf" " #afafdf
+let s:bluediff   = "00005f" " #00005f
+let s:bluedeep   = "005fff" " #005fff
+let s:purple     = "dfafdf" " #dfafdf
+let s:magenta    = "c397d8" " #c397d8
+let s:white      = "ffffff" " #ffffff
 
 " Vim Highlighting
 fun <SID>do_colours()
@@ -109,12 +109,15 @@ fun <SID>do_colours()
     call <SID>X("VimLineComment", s:comment, "", "none")
     call <SID>X("VimCommentTitle", s:grey, "", "none")
     call <SID>X("VimFunction", s:yellowlight, "", "")
+    call <SID>X("VimFuncSid", s:purple, "", "")
     call <SID>X("VimUserFunc", s:blue, "", "")
     call <SID>X("VimVar", s:purple, "", "")
     call <SID>X("VimIsCommand", s:bluedark, "", "")
     call <SID>X("vimOption", s:bluedark, "", "")
     call <SID>X("vimHLGroup", s:bluedark, "", "")
     call <SID>X("vimNotation", s:bluedark, "", "")
+    call <SID>X("vimContinue", s:white, "", "")
+    call <SID>X("vimMapModKey", s:bluedark, "", "")
     call <SID>X("Error", s:foreground, s:reddark, "")
     call <SID>X("ErrorMsg", s:foreground, s:reddark, "")
     call <SID>X("Folded", s:comment, s:black, "")
@@ -122,19 +125,21 @@ fun <SID>do_colours()
     call <SID>X("VertSplit", s:comment, s:select, "")
     call <SID>X("WildMenu", s:greenlight, s:comment, "")
     call <SID>X("SignColumn", s:foreground, s:greydark, "")
-	" .diff
-	call <SID>X("diffAdded",   s:foreground, s:greendark, "")
-	call <SID>X("diffRemoved", s:foreground, s:reddark, "")
-	" vimdiff
-	call <SID>X("diffAdd",    "", s:greendiff, "")
-	call <SID>X("diffDelete", s:reddark, s:reddark, "")
-	call <SID>X("diffChange", "", s:select, "")
-	call <SID>X("diffText",   "", s:black, "")
-	call <SID>X("CursorColumn", "", s:black, "none")
+    call <SID>X("ExtraWhitespace", s:reddark, "", "")
+    call <SID>X("BadWhitespace", s:reddark, "", "")
+    " .diff
+    call <SID>X("diffAdded",   s:foreground, s:greendark, "")
+    call <SID>X("diffRemoved", s:foreground, s:reddark, "")
+    " vimdiff
+    call <SID>X("diffAdd",    "", s:greendiff, "")
+    call <SID>X("diffDelete", s:reddark, s:reddark, "")
+    call <SID>X("diffChange", "", s:select, "")
+    call <SID>X("diffText",   "", s:black, "")
+    call <SID>X("CursorColumn", "", s:black, "none")
     if version >= 700
         call <SID>X("CursorLine", "", s:darkest, "none")
         call <SID>X("CursorColumn", "", s:black, "none")
-		call <SID>X("ColorColumn", "", s:darkest, "none")
+        call <SID>X("ColorColumn", "", s:darkest, "none")
         call <SID>X("PMenu", s:foreground, s:select, "none")
         call <SID>X("PMenuSel", s:foreground, s:select, "reverse")
         call <SID>X("MatchParen", s:greenlight, s:background, "none")
@@ -154,7 +159,7 @@ fun <SID>do_colours()
     call <SID>X("Label", s:blue, "", "")
     call <SID>X("Exception", s:blue, "", "")
     call <SID>X("Conditional", s:blue, "", "")
-    call <SID>X("PreProc", s:greenlight, "", "")
+    call <SID>X("PreProc", s:bluedark, "", "")
     call <SID>X("Define", s:greenlight, "", "none")
     call <SID>X("Include", s:greenlight, "", "")
     call <SID>X("Macro", s:greenlight, "", "")
@@ -172,14 +177,29 @@ fun <SID>do_colours()
     call <SID>X("Keyword", s:purple, "", "")
     "call <SID>X("Ignore", "444444", "", "")
     call <SID>X("Todo", s:yellowdark, s:greydark, "")
+    call <SID>X("shSpecial", s:white, "", "")
+    call <SID>X("shCtrlSeq", s:white, "", "")
+    call <SID>X("shTestOpr", s:bluedark, "", "")
+    call <SID>X("shOperator", s:bluedark, "", "")
+    call <SID>X("shRange", s:bluedark, "", "")
+    call <SID>X("shExpr", s:greylight, "", "")
+    call <SID>X("shVar", s:greylight, "", "")
+    call <SID>X("shVarAssign", s:white, "", "")
+    "call <SID>X("shVariable", s:purple, "", "bold")
+    call <SID>X("shDerefVar", s:purple, "", "")
+    call <SID>X("shCommandSub", s:greylight, "", "")
+    call <SID>X("shStatement", s:bluedark, "", "")
+    call <SID>X("shLoop", s:blue, "", "")
+    call <SID>X("kshStatement", s:bluedark, "", "")
 
-	" GitCommit Msg
-	call <SID>X("gitcommitHeader", s:comment, "", "")
-	call <SID>X("gitcommitSelectedType", s:greenlight, "", "")
-	call <SID>X("gitcommitSelectedFile", s:greenlight, "", "")
-	call <SID>X("gitcommitDiscardedType", s:yellowdark, "", "")
-	call <SID>X("gitcommitDiscardedFile", s:yellowdark, "", "")
-	call <SID>X("gitcommitUntrackedFile", s:bluedeep, "", "")
+
+    " GitCommit Msg
+    call <SID>X("gitcommitHeader", s:comment, "", "")
+    call <SID>X("gitcommitSelectedType", s:greenlight, "", "")
+    call <SID>X("gitcommitSelectedFile", s:greenlight, "", "")
+    call <SID>X("gitcommitDiscardedType", s:yellowdark, "", "")
+    call <SID>X("gitcommitDiscardedFile", s:yellowdark, "", "")
+    call <SID>X("gitcommitUntrackedFile", s:bluedeep, "", "")
 
     " PHP
     "call <SID>X("phpRegion", s:white, "", "")
@@ -224,7 +244,7 @@ fun <SID>do_colours()
     call <SID>X("pythonImport", s:white, "", "")
     call <SID>X("pythonRun", s:greenlight, "", "")
     call <SID>X("pythonCoding", s:reddark, "", "")
-    call <SID>X("pythonOperator", s:white, "", "")
+    call <SID>X("pythonOperator", s:greylight, "", "")
     call <SID>X("pythonExtraOperator", s:greylight, "", "")
     call <SID>X("pythonException", s:purple, "", "")
     call <SID>X("pythonExceptions", s:blue, "", "")
@@ -237,9 +257,18 @@ fun <SID>do_colours()
     call <SID>X("pythonDottedName", s:blue, "", "")
     call <SID>X("pythonDocString", s:yellowdark2, "", "")
     call <SID>X("pythonDocTest2", s:yellowdark, "", "")
-    " pip
+    " Pip
     call <SID>X("dosiniHeader", s:greylight, "", "")
     call <SID>X("dosiniValue", s:yellowlight3, "", "")
+
+    " Terraform
+    call <SID>X("terraResourceTypeBI", s:blue, "", "")
+    call <SID>X("terraResourceTypeStr", s:yellowlight, "", "")
+    call <SID>X("terraValueString", s:yellowlight, "", "")
+    call <SID>X("terraBrackets", s:bluedark, "", "")
+    "call <SID>X("terraBraces", s:greydark, "", "")
+    call <SID>X("terraResourceName", s:orangelight, "", "")
+    call <SID>X("terraDataTypeBI", s:blue, "", "")
 
 
     " JavaScript
@@ -273,10 +302,13 @@ fun <SID>do_colours()
     call <SID>X("yamlBlockCollectionItemStart", s:blue, "", "")
     "call <SID>X("yamlPlainScalar", s:yellowlight3, "", "")
     call <SID>X("yamlDocumentStart", s:white, "", "")
+    call <SID>X("yamlFlowString", s:yellowlight2, "", "")
+    call <SID>X("yamlAnchor", s:purple, "", "bold")
+    call <SID>X("yamlAlias", s:purple, "", "")
 
     " Ansible
     call <SID>X("ansible_name", s:blue, "", "")
-    "call <SID>X("ansible_attribute", s:blue, "", "")
+    call <SID>X("ansible_attributes", s:purple, "", "")
 
     " CSS
     call <SID>X("cssBraces", s:bluedark, "", "")
@@ -348,6 +380,11 @@ fun <SID>do_colours()
     call <SID>X("iptablesBadComment", s:reddark, "", "")
     call <SID>X("iptablesTodo", s:yellowdark2, "", "")
     call <SID>X("iptablesLongParam", s:reddark, "", "")
+
+    " XML
+    call <SID>X("xmlTag", s:bluedark, "", "")
+    call <SID>X("xmlTagName", s:bluedark, "", "")
+    call <SID>X("xmlEndTag", s:bluedark, "", "")
 endfun
 
 
