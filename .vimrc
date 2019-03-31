@@ -345,8 +345,6 @@ nnoremap <leader>n :noh<CR>
 " Toggle paste mode
 nnoremap <leader>p :set invpaste<CR>:set paste?<CR>
 
-" Easier linewise reselection
-"nnoremap <leader>v V`]
 " Visually select the text that was last selected/pasted
 nnoremap <leader>v `[v`]
 
@@ -433,11 +431,9 @@ if has("autocmd")
 
         " Highlight trailing whitespace and tab characters. Note that the foreground
         " colors are overridden here, so this only works with the "set list" settings
-        " Sets color to red
-        "autocmd ColorScheme * highlight ExtraWhitespace ctermfg=red guifg=red
-        "highlight ExtraWhitespace ctermfg=red guifg=red cterm=bold gui=bold
-        "match ExtraWhitespace /\s\+$\|\t/
+        match ExtraWhitespace /\s\+$\|\t/
     augroup END
+
 
     augroup VIM
         " Remove all auto-commands from the group
@@ -445,6 +441,15 @@ if has("autocmd")
 
         " Reload .vimrc on save
         "autocmd! bufwritepost .vimrc source %
+    augroup END
+
+    augroup SH
+        " Remove all auto-commands from the group
+        autocmd!
+
+        " Fix code
+        autocmd FileType sh nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<CR>
+        autocmd FileType sh nnoremap <buffer> <silent> <LocalLeader>- :ALELint<CR>
     augroup END
 
     augroup Firewall
@@ -460,14 +465,16 @@ if has("autocmd")
         autocmd!
 
         " Below from : https://svn.python.org/projects/python/trunk/Misc/Vim/vimrc
+        " list as whitespace matters more
         autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4
-                    \ softtabstop=4 colorcolumn=79 textwidth=79
+                    \ softtabstop=4 colorcolumn=79 textwidth=79 list
                     \ formatoptions+=croq foldmethod=indent fileformat=unix
                     \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
         " Fix code
         "autocmd FileType python nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<CR>
         autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf3<CR>
+        autocmd FileType python nnoremap <buffer> <silent> <LocalLeader>- :ALELint<CR>
 
         " Python PEP 8
         ""autocmd FileType python syn keyword pythonDecorator True None False self
@@ -484,14 +491,8 @@ if has("autocmd")
         " Ansible
         autocmd FileType ansible set shiftwidth=2
 
-        " PyMode takes care of the below now.
-        " Use the below highlight group when displaying bad whitespace is desired.
-        highlight BadWhitespace ctermbg=red guibg=red
-
-        " Display tabs at the beginning of a line in Python mode as bad.
-        autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /^\t\+/
-        " Make trailing whitespace be flagged as bad.
-        autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+        " tabs at the beginning of a line & trailing whitespace are bad.
+        "autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match ExtraWhitespace /\s\+$\|\t/
     augroup END
 
     augroup HTML
@@ -543,6 +544,7 @@ if has("autocmd")
 
         " Always start a gitcommit on the first line
         autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+        autocmd BufNewFile,BufRead .gitignore set ft=gitconfig
     augroup END
 
     " Web Server syntax
@@ -625,6 +627,7 @@ vmap <leader>:: :Tabularize/:\zs<CR>
 "Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'           " Git integration
+"Plug 'tpope/vim-git'
 Plug 'adelarsq/vim-matchit'         " Match words with %
 
 
@@ -648,7 +651,7 @@ Plug 'elzr/vim-json'
 Plug 'lepture/vim-jinja'
 Plug 'tpope/vim-ragtag'            " HTML/XML Mappings
 "Plug 'othree/html5.vim'            " HTML5
-
+Plug 'ap/vim-css-color'
 
 Plug 'vimwiki/vimwiki'              " Vimwiki - ERROR github username issue!?
 let g:vimwiki_list = [{'path': '~/.vim/wiki/'}]
@@ -656,27 +659,16 @@ let g:vimwiki_camel_case = 0
 
 
 Plug 'pearofducks/ansible-vim'      " Ansible syntax etc
-let g:ansible_extra_syntaxes = "sh.vim conf.vim dns.vim dnsmasq.vim jinga2.vim json.vim python.vim sudoers.vim sshconfig.vim sshdconfig.vim yaml.vim"
+let g:ansible_extra_syntaxes = "sh.vim conf.vim css.vim dns.vim jinga2.vim json.vim python.vim sshconfig.vim sshdconfig.vim yaml.vim"
 let g:ansible_attribute_highlight = "ab"
-"Available flags (bold are defaults):
-"a: highlight all instances of key=
-"o: highlight only instances of key= found on newlines
-"d: dim the instances of key= found
-"b: brighten the instances of key= found
-"n: turn this highlight off completely
-
 let g:ansible_name_highlight = 'b'
-"d: dim the instances of name: found
-"b: brighten the instances of name: found
 let g:ansible_extra_keywords_highlight = 1
-"Note: This option is enabled when set, and disabled when not set.
-"Highlight the following additional keywords in playbooks:
-"  register always_run changed_when failed_when no_log args vars delegate_to ignore_errors
-"By default we only highlight: include until retries delay when only_if become become_user block rescue always notify
+let g:ansible_normal_keywords_highlight = 'Statement'
+let g:ansible_with_keywords_highlight = 'Statement'
 
 
 Plug 'mhinz/vim-startify'
-Plug 'nvie/vim-flake8'
+"Plug 'nvie/vim-flake8'
 
 " IDE autocompletion
 Plug 'davidhalter/jedi-vim'
@@ -691,7 +683,9 @@ let g:ale_lint_on_enter = 0
 "let b:ale_linters = ['flake8']
 let g:ale_linters = {
 \ 'python': ['flake8'],
+\ 'sh': ['shellcheck']
 \}
+let g:ale_sh_shellcheck_exclusions = 'SC1008,SC1090,SC1115,SC1117,SC1128,SC2039,SC2096'
 "let b:ale_fixers = ['prettier', 'eslint']
 "let b:ale_fixers = [
 "\   'remove_trailing_lines',
@@ -701,14 +695,14 @@ let g:ale_linters = {
 "\]
 " isort, autopep8
 let g:ale_fixers = {
-\    '*': ['remove_trailing_lines'],
+\    '*': [],
 \    'python': [
 \       'add_blank_lines_for_python_control_statements',
 \       'ale#fixers#generic_python#BreakUpLongLines',
 \       'yapf3',
 \    ],
-\    'html': [],
 \    'javascript': ['eslint'],
+\    'sh': ['shfmt'],
 \}
 " \ 'python': ['isort', 'ale#fixers#generic_python#BreakUpLongLines'],
 let g:ale_fix_on_save = 0
@@ -717,7 +711,7 @@ let g:ale_fix_on_save = 0
 "let g:ale_set_highlights = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_echo_msg_format = '[%linter%][%code%] %s [%severity%]'
 " Navigate between errors quickly :help ale-navigation-commands
 nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
 nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
