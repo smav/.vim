@@ -201,6 +201,8 @@ fun <SID>do_colours()
     call <SID>X("gitcommitDiscardedFile", s:yellowdark, "", "")
     call <SID>X("gitcommitUntrackedFile", s:bluedeep, "", "")
 
+    " Markdown
+    call <SID>X("markdownError", s:foreground, "", "")
     " PHP
     "call <SID>X("phpRegion", s:white, "", "")
     call <SID>X("phpFunctions", s:bluedark, "", "")
